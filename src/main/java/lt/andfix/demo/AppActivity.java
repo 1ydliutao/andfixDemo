@@ -1,9 +1,9 @@
 package lt.andfix.demo;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +19,10 @@ import com.thin.downloadmanager.ThinDownloadManager;
 import java.io.File;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements DownloadStatusListener {
+/**
+ * 作者： lt on 2016/1/12
+ */
+public class AppActivity extends Activity implements DownloadStatusListener {
     private ThinDownloadManager downloadManager;
     private int downloadId;
     private static final int DOWNLOAD_THREAD_POOL_SIZE = 4;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements DownloadStatusLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_main);
         downloadManager = new ThinDownloadManager(DOWNLOAD_THREAD_POOL_SIZE);
-        final  TextView t= (TextView) findViewById(R.id.text);
+        final TextView t= (TextView) findViewById(R.id.text);
         Button bt= (Button) findViewById(R.id.bt);
         Button hot= (Button) findViewById(R.id.hot);
         bt.setOnClickListener(new View.OnClickListener() {
@@ -47,14 +50,12 @@ public class MainActivity extends AppCompatActivity implements DownloadStatusLis
     }
 
     private void toast(TextView  t) {
-        t.setText("错误点击了一次");
+        t.setText("fix修补正确点击");
     }
     private void downLoadingFile() {
         if (downloadManager.query(downloadId) == DownloadManager.STATUS_NOT_FOUND) {
             File filesDir = getExternalFilesDir("");
-            Uri downloadUri = Uri.parse("https://raw.githubusercontent.com/THEONE10211024/HotFixDemo/master/app/src/main/java/patch/out.apatch");
-//			Uri downloadUri = Uri.parse("https://raw.githubusercontent.com/alibaba/AndFix/master/tools/apkpatch-1.0.3.zip");
-
+            Uri downloadUri = Uri.parse("https://github.com/1ydliutao/andfixDemo/tree/master/src/main/java/patch/out.apatch");
             String patchFileString = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + App.APATCH_PATH;
             Uri destinationUri = Uri.parse(patchFileString);
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements DownloadStatusLis
 
     @Override
     public void onDownloadFailed(int id, int errorCode, String errorMessage) {
-
+        Toast.makeText(this, "Hook fail"+errorMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override

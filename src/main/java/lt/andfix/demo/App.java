@@ -23,16 +23,16 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-
+//		CrashReport.initCrashReport(this, "900012850", false);
+    //    CrashHandler.getInstance().init(this);
         // initialize
         mPatchManager = new PatchManager(this);
-        mPatchManager.init("1.0");
+        mPatchManager.init("1.1");
         Log.d(TAG, "inited.");
 
         // load patch
         mPatchManager.loadPatch();
-        Log.e(TAG, "apatch loaded.");
+        Log.d(TAG, "apatch loaded.");
 
         // add patch at runtime
         try {
@@ -43,7 +43,7 @@ public class App extends Application {
 			Uri destinationUri = Uri.parse(filesDir+"/out.apatch");
 			mPatchManager.addPatch(destinationUri.getPath());*/
             mPatchManager.addPatch(patchFileString);
-            Log.e(TAG, "apatch:" + patchFileString + " added.");
+            Log.d(TAG, "apatch:" + patchFileString + " added.");
         } catch (IOException e) {
             Log.e(TAG, "", e);
         }
