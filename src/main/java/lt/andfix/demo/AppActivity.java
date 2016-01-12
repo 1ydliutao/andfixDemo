@@ -50,7 +50,7 @@ public class AppActivity extends Activity implements DownloadStatusListener {
     }
 
     private void toast(TextView  t) {
-        t.setText("fix修补正确点击");
+        t.setText("错误点击了一次");
     }
     private void downLoadingFile() {
         if (downloadManager.query(downloadId) == DownloadManager.STATUS_NOT_FOUND) {
@@ -79,7 +79,6 @@ public class AppActivity extends Activity implements DownloadStatusListener {
 			mPatchManager.addPatch(destinationUri.getPath());*/
             App mp = (App) getApplication();
             mp.getPatchManager().addPatch(patchFileString);
-
             Log.e(TAG, "apatch:" + patchFileString + " added.");
         } catch (IOException e) {
             Log.e(TAG, "", e);

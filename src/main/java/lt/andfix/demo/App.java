@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.alipay.euler.andfix.patch.PatchManager;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -27,27 +28,25 @@ public class App extends Application {
     //    CrashHandler.getInstance().init(this);
         // initialize
         mPatchManager = new PatchManager(this);
-        mPatchManager.init("1.1");
+        mPatchManager.init("2.1");
         Log.d(TAG, "inited.");
-
         // load patch
         mPatchManager.loadPatch();
         Log.d(TAG, "apatch loaded.");
-
         // add patch at runtime
         try {
             // .apatch file path
             String patchFileString = Environment.getExternalStorageDirectory()
                     .getAbsolutePath() + APATCH_PATH;
-			/*File filesDir = getExternalFilesDir("");
-			Uri destinationUri = Uri.parse(filesDir+"/out.apatch");
-			mPatchManager.addPatch(destinationUri.getPath());*/
+            File f=new File(patchFileString);
+            if(f.exists()){
+
+            }
             mPatchManager.addPatch(patchFileString);
-            Log.d(TAG, "apatch:" + patchFileString + " added.");
+
         } catch (IOException e) {
             Log.e(TAG, "", e);
         }
-
     }
     public PatchManager getPatchManager(){
         return mPatchManager;
